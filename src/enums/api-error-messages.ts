@@ -4,5 +4,7 @@ export const enum ApiErrorMessages {
   userNotExists = "User not exists with this email / password",
   incorrectPassword = "Incorrect password",
   tokenNotGenerated = "Error generating JWT",
+  missingToken = "Token not founded in request",
+  invalidToken = "Invalid token",
   unknown = "UnknownError",
 }

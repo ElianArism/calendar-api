@@ -94,14 +94,19 @@ export const login = async (req: Request, res: Response) => {
   return res.json(GenerateSuccessResponse<string>(result));
 };
 
-export const renew = (req: Request, res: Response) => {
-  return res.json({
-    ok: true,
-    msg: "Hello World BREO",
-  });
+export const renew = async (req: Request, res: Response) => {
+  const { _id, username } = req;
+
+  const result = await _GenerateJWTProcess({ _id, username }, res);
+  if (typeof result !== "string") return result;
+
+  return res.json(GenerateSuccessResponse(result));
 };
 
-async function _GenerateJWTProcess(user: IUser, res: Response) {
+async function _GenerateJWTProcess(
+  user: { _id: string; username: string },
+  res: Response
+) {
   const { error, jwt } = await GenerateJWT(user._id, user.username);
 
   if (error) {

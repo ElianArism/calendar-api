@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { ApiErrorMessages } from "../enums/api-error-messages";
 
 export const GenerateJWT = (
@@ -24,4 +24,15 @@ export const GenerateJWT = (
       }
     );
   });
+};
+
+export const ValidateJsonWebToken = (token: string) => {
+  const payload: JwtPayload = <JwtPayload>(
+    jwt.verify(token, <string>process.env.SECRET_JWT_SEED)
+  );
+
+  return {
+    uid: payload.uid,
+    username: payload.username,
+  };
 };
