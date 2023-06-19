@@ -1,6 +1,6 @@
-## Api WIP
+# Api WIP
 
-# Features
+## Features
 
 - LogIn
 - SignUp
