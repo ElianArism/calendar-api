@@ -1,3 +1,4 @@
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import connectDB from "./db/config";
@@ -6,6 +7,9 @@ import router from "./routes/router";
 dotenv.config();
 
 export const app = express();
+
+// CORS
+app.use(cors());
 
 // Body Requests Parser
 app.use(express.json());
@@ -16,6 +20,7 @@ app.use(express.static("public"));
 // Routes
 app.use(router);
 
+// Database
 connectDB();
 
 // Server
