@@ -1,8 +1,11 @@
-import { ApiErrorMessages } from "../enums/api-error-messages";
+import {
+  ApiErrorMessages,
+  EventErrorMessages,
+} from "../enums/api-error-messages";
 import { ApiResponse } from "../interfaces/api-response";
 
 export const GenerateErrorResponse = <T>(
-  message: ApiErrorMessages,
+  message: ApiErrorMessages | EventErrorMessages,
   logs?: any
 ): ApiResponse<T> => {
   return {

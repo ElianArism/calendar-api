@@ -6,5 +6,11 @@ export const enum ApiErrorMessages {
   tokenNotGenerated = "Error generating JWT",
   missingToken = "Token not founded in request",
   invalidToken = "Invalid token",
+  paramIdIsRequired = "Param id is required",
+  userUnauthorized = "The user does not have sufficient permissions to perform this action",
   unknown = "UnknownError",
+}
+
+export const enum EventErrorMessages {
+  eventNotFound = "Event not found",
 }
