@@ -14,11 +14,11 @@ app.use(cors());
 // Body Requests Parser
 app.use(express.json());
 
-// Public dir
-app.use(express.static("public"));
-
 // Routes
 app.use(router);
+
+// Public dir
+app.use(express.static("public"));
 
 // Database
 connectDB();
