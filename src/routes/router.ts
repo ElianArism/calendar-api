@@ -5,7 +5,7 @@ import eventRoutes from "./events";
 
 const router = Router();
 
-router.use("/api", authRoutes);
 router.use("/api/events", eventRoutes);
+router.use("/api/auth", authRoutes);
 
 export default router;
