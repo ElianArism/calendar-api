@@ -14,4 +14,3 @@ RUN npm install
 CMD ["npm", "start"]
 
 EXPOSE 4000/tcp
-EXPOSE 80/tcp
