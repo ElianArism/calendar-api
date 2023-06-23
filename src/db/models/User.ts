@@ -18,6 +18,11 @@ const UserSchema = new Schema<IUser>({
   },
 });
 
+UserSchema.method("toJSON", function () {
+  const { __V, ...object } = this.toObject();
+  return object;
+});
+
 const User = model<IUser>("User", UserSchema);
 
 export default User;

@@ -19,7 +19,7 @@ export const GenerateSuccessResponse = <T>(
   data: T
 ): ApiResponse<T> => {
   return {
-    data: data,
+    data,
     error: null,
     ok: true,
   };
