@@ -52,7 +52,7 @@ export const signup = async (req: Request, res: Response) => {
 
     return res.json(
       GenerateSuccessResponse<Partial<IUser & { jwt: string }>>({
-        email,
+        username,
         _id: user._id,
         jwt: result,
       })
@@ -91,7 +91,13 @@ export const login = async (req: Request, res: Response) => {
   const result = await _GenerateJWTProcess(user, res);
   if (typeof result !== "string") return result;
 
-  return res.json(GenerateSuccessResponse<string>(result));
+  return res.json(
+    GenerateSuccessResponse<Partial<IUser> & { token: string }>({
+      token: result,
+      username: user.username,
+      _id: user._id,
+    })
+  );
 };
 
 export const renew = async (req: Request, res: Response) => {
