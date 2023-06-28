@@ -25,7 +25,7 @@ const signup = async (req, res) => {
                 : `username: "${username}"`}`;
             return res
                 .status(400)
-                .json((0, response_generation_1.GenerateErrorResponse)("User already exists" /* ApiErrorMessages.userAlreadyExists */, logs));
+                .json((0, response_generation_1.GenerateErrorResponse)("User already exists" /* userAlreadyExists */, logs));
         }
         user.password = (0, encryption_1.EncryptString)(user.password);
         await user.save();
@@ -33,7 +33,7 @@ const signup = async (req, res) => {
         if (typeof result !== "string")
             return result;
         return res.json((0, response_generation_1.GenerateSuccessResponse)({
-            email,
+            username,
             _id: user._id,
             jwt: result,
         }));
@@ -41,7 +41,7 @@ const signup = async (req, res) => {
     catch (error) {
         return res
             .status(500)
-            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* ApiErrorMessages.internalServerError */, error));
+            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* internalServerError */, error));
     }
 };
 exports.signup = signup;
@@ -51,17 +51,21 @@ const login = async (req, res) => {
     if (!user) {
         return res
             .status(400)
-            .json((0, response_generation_1.GenerateErrorResponse)("User not exists with this email / password" /* ApiErrorMessages.userNotExists */));
+            .json((0, response_generation_1.GenerateErrorResponse)("User not exists with this email / password" /* userNotExists */));
     }
     if (!(0, encryption_1.AreEncriptedStringsEquals)(password, user.password)) {
         return res
             .status(400)
-            .json((0, response_generation_1.GenerateErrorResponse)("Incorrect password" /* ApiErrorMessages.incorrectPassword */));
+            .json((0, response_generation_1.GenerateErrorResponse)("Incorrect password" /* incorrectPassword */));
     }
     const result = await _GenerateJWTProcess(user, res);
     if (typeof result !== "string")
         return result;
-    return res.json((0, response_generation_1.GenerateSuccessResponse)(result));
+    return res.json((0, response_generation_1.GenerateSuccessResponse)({
+        token: result,
+        username: user.username,
+        _id: user._id,
+    }));
 };
 exports.login = login;
 const renew = async (req, res) => {
@@ -69,7 +73,11 @@ const renew = async (req, res) => {
     const result = await _GenerateJWTProcess({ _id, username }, res);
     if (typeof result !== "string")
         return result;
-    return res.json((0, response_generation_1.GenerateSuccessResponse)(result));
+    return res.json((0, response_generation_1.GenerateSuccessResponse)({
+        token: result,
+        username,
+        _id,
+    }));
 };
 exports.renew = renew;
 async function _GenerateJWTProcess(user, res) {

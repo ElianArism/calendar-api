@@ -15,10 +15,10 @@ exports.app = (0, express_1.default)();
 exports.app.use((0, cors_1.default)());
 // Body Requests Parser
 exports.app.use(express_1.default.json());
-// Public dir
-exports.app.use(express_1.default.static("public"));
 // Routes
 exports.app.use(router_1.default);
+// Public dir
+exports.app.use(express_1.default.static("public"));
 // Database
 (0, config_1.default)();
 // Server

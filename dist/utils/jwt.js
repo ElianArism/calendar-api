@@ -10,7 +10,7 @@ const GenerateJWT = (uid, username) => {
         jsonwebtoken_1.default.sign({ uid, username }, process.env.SECRET_JWT_SEED, { expiresIn: "2h" }, (error, token) => {
             if (error) {
                 reject({
-                    message: "Error generating JWT" /* ApiErrorMessages.tokenNotGenerated */,
+                    message: "Error generating JWT" /* tokenNotGenerated */,
                     logs: error,
                 });
             }

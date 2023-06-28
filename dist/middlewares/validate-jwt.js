@@ -8,7 +8,7 @@ const validateJWT = async (req, res, next) => {
     if (!token) {
         return res
             .status(401)
-            .json((0, response_generation_1.GenerateErrorResponse)("Token not founded in request" /* ApiErrorMessages.missingToken */));
+            .json((0, response_generation_1.GenerateErrorResponse)("Token not founded in request" /* missingToken */));
     }
     try {
         const { uid, username } = (0, jwt_1.ValidateJsonWebToken)(token);
@@ -18,7 +18,7 @@ const validateJWT = async (req, res, next) => {
     catch (error) {
         return res
             .status(401)
-            .json((0, response_generation_1.GenerateErrorResponse)("Invalid token" /* ApiErrorMessages.invalidToken */));
+            .json((0, response_generation_1.GenerateErrorResponse)("Invalid token" /* invalidToken */));
     }
     next();
 };
