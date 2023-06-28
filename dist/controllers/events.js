@@ -7,7 +7,8 @@ exports.removeEvent = exports.updateEvent = exports.getEventById = exports.getEv
 const Event_1 = __importDefault(require("../db/models/Event"));
 const response_generation_1 = require("../utils/response-generation");
 const createEvent = async (req, res) => {
-    const event = new Event_1.default(req.body);
+    const id = req._id;
+    const event = new Event_1.default({ ...req.body, user: id });
     try {
         const { _id, title } = await event.save();
         return res.json((0, response_generation_1.GenerateSuccessResponse)({
@@ -18,7 +19,7 @@ const createEvent = async (req, res) => {
     catch (error) {
         return res
             .status(500)
-            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* ApiErrorMessages.internalServerError */, error));
+            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* internalServerError */, error));
     }
 };
 exports.createEvent = createEvent;
@@ -30,7 +31,7 @@ const getEvents = async (req, res) => {
     catch (error) {
         return res
             .status(500)
-            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* ApiErrorMessages.internalServerError */, error));
+            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* internalServerError */, error));
     }
 };
 exports.getEvents = getEvents;
@@ -47,7 +48,7 @@ const getEventById = async (req, res) => {
     catch (error) {
         return res
             .status(500)
-            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* ApiErrorMessages.internalServerError */, error));
+            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* internalServerError */, error));
     }
 };
 exports.getEventById = getEventById;
@@ -68,7 +69,7 @@ const updateEvent = async (req, res) => {
     catch (error) {
         return res
             .status(500)
-            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* ApiErrorMessages.internalServerError */, error));
+            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* internalServerError */, error));
     }
 };
 exports.updateEvent = updateEvent;
@@ -89,16 +90,16 @@ const removeEvent = async (req, res) => {
     catch (error) {
         return res
             .status(500)
-            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* ApiErrorMessages.internalServerError */, error));
+            .json((0, response_generation_1.GenerateErrorResponse)("Internal server error" /* internalServerError */, error));
     }
 };
 exports.removeEvent = removeEvent;
 const validateIfEventExistsAndUserPermissions = async (id, userId) => {
     const event = await Event_1.default.findById(id);
     if (!event)
-        return (0, response_generation_1.GenerateErrorResponse)("Event not found" /* EventErrorMessages.eventNotFound */);
+        return (0, response_generation_1.GenerateErrorResponse)("Event not found" /* eventNotFound */);
     else if (event.user.toString() !== userId)
-        return (0, response_generation_1.GenerateErrorResponse)("The user does not have sufficient permissions to perform this action" /* ApiErrorMessages.userUnauthorized */);
+        return (0, response_generation_1.GenerateErrorResponse)("The user does not have sufficient permissions to perform this action" /* userUnauthorized */);
     return (0, response_generation_1.GenerateSuccessResponse)(event);
 };
 //# sourceMappingURL=events.js.map

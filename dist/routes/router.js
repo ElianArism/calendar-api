@@ -7,7 +7,7 @@ const express_1 = require("express");
 const auth_1 = __importDefault(require("./auth"));
 const events_1 = __importDefault(require("./events"));
 const router = (0, express_1.Router)();
-router.use("/api/auth", auth_1.default);
 router.use("/api/events", events_1.default);
+router.use("/api/auth", auth_1.default);
 exports.default = router;
 //# sourceMappingURL=router.js.map

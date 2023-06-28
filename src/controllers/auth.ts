@@ -106,7 +106,13 @@ export const renew = async (req: Request, res: Response) => {
   const result = await _GenerateJWTProcess({ _id, username }, res);
   if (typeof result !== "string") return result;
 
-  return res.json(GenerateSuccessResponse(result));
+  return res.json(
+    GenerateSuccessResponse<Partial<IUser> & { token: string }>({
+      token: result,
+      username,
+      _id,
+    })
+  );
 };
 
 async function _GenerateJWTProcess(

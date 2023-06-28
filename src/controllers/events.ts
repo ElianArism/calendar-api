@@ -12,7 +12,8 @@ import {
 } from "../utils/response-generation";
 
 export const createEvent = async (req: Request, res: Response) => {
-  const event = new Event(req.body);
+  const id = req._id;
+  const event = new Event({ ...req.body, user: id });
 
   try {
     const { _id, title }: IEvent = await event.save();
