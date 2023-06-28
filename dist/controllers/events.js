@@ -7,7 +7,8 @@ exports.removeEvent = exports.updateEvent = exports.getEventById = exports.getEv
 const Event_1 = __importDefault(require("../db/models/Event"));
 const response_generation_1 = require("../utils/response-generation");
 const createEvent = async (req, res) => {
-    const event = new Event_1.default(req.body);
+    const id = req._id;
+    const event = new Event_1.default({ ...req.body, user: id });
     try {
         const { _id, title } = await event.save();
         return res.json((0, response_generation_1.GenerateSuccessResponse)({
